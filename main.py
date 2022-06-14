@@ -2,19 +2,10 @@ import math
 import wave
 import struct
 
-from PIL import Image
+from PIL import Image, ImageEnhance
 
 def getValue(pixel):
-    if pixel > 220:
-        return 6
-    if pixel > 190:
-        return 4
-    if pixel > 100:
-        return 0.5
-    if pixel > 50:
-        return 0.1
-    else:
-        return 0
+    return (255 - pixel)/10
 
 class component:
     def __init__(self, amplitude, frequency):
@@ -85,14 +76,16 @@ class drawer:
         wav_file.close()
 
 with Image.open("Sakuya[WhoAmI].jpg") as image:
+    width, height = image.size
 
     imageGreyScale = image.convert("L")
 
-    pixels = imageGreyScale.load()
+    enhancer = ImageEnhance.Contrast(imageGreyScale)
+    contrastImage = enhancer.enhance(4)
 
-    width, height = image.size
+    pixels = contrastImage.load()
 
     Drawer = drawer(pixels, image.size, 20, 20)
     Drawer.draw()
     Drawer.save_wav("tut.wav")
-    imageGreyScale.show()
+    contrastImage.show()
