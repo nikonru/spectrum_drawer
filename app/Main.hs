@@ -69,7 +69,7 @@ dynHeight :: CP.DynamicImage -> Int
 dynHeight img = CP.dynamicMap CP.imageHeight img
 
 extractPixels :: CP.Image CP.PixelRGB16 ->  [[Float]]
-extractPixels img = extractPixels' img width height [] 
+extractPixels img = extractPixels' img (width-1) (height-1) [] 
                     where width = CP.imageWidth img
                           height = CP.imageHeight img
 
@@ -77,7 +77,7 @@ extractPixels' :: CP.Image CP.PixelRGB16 -> Int -> Int ->  [[Float]] -> [[Float]
 extractPixels' img x y list = if y>0
                                 then extractPixels' img x (y-1) (value:list)
                                 else list
-                              where value = extractPixelsLine img x y []
+                              where value = extractPixelsLine img x (y-1) []
 
 extractPixelsLine :: CP.Image CP.PixelRGB16 -> Int -> Int ->  [Float] -> [Float]
 extractPixelsLine img x y list = if x>0
