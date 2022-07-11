@@ -1,6 +1,4 @@
+dist-newstyle
 *.wav
 *.jpg
 *.png
-*.exe
-*.hi
-*.o
