@@ -1,4 +1,4 @@
-# Revision history for myfirstapp
+# Revision history for waver
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
