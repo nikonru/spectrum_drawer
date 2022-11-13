@@ -5,7 +5,7 @@ import System.Environment
 
 import ImageReader (convertImageToWave)
 
-path = "/home/user/study/waver/tree.png"
+path = "tree.png"
 
 parsePath args = head args
                    
