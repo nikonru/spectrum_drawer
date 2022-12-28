@@ -49,4 +49,4 @@ Then run the command below
 
 So we will obtain the new file `audio.wav`, which spectrogram, we can check in Audacity
 
-![spectrum](images\spectrum.png)
+![spectrum](images/spectrum.png)
