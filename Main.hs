@@ -1,11 +1,7 @@
 module Main where
 
 import System.Environment
-
-
 import ImageReader (convertImageToWave)
-
---path = "/home/user/study/waver/tree1.jpg"
 
 parsePath args = head args
 parseName args = if length processedArgs == 0
@@ -14,12 +10,12 @@ parseName args = if length processedArgs == 0
                  where processedArgs = drop 1 args
 
 parseDt args = if length processedArgs == 0
-                 then 0.01
+                 then 0.05
                  else read $ head processedArgs
                where processedArgs = drop 1 $ tail args
 
 parseDf args = if length processedArgs == 0
-                 then 240
+                 then 250
                  else read $ head processedArgs
                where processedArgs = drop 1 $ drop 1 $ drop 1 args
                    

@@ -18,16 +18,11 @@ makeHeader samplingFrequency = WAVEHeader numChannels frameRate bitsPerSample fr
                                      bitsPerSample = 8 
                                      frames = Nothing
 
-image1 :: MonotonicImage
-image1 = [[0.5,0,0,0,0,0,0.2],
-          [0,0.5,0,0,0,0,0.1],
-          [0.5,0,0,0,0,0.3,0]]
-
 writeAudio :: String -> MonotonicImage -> Double -> Int -> IO()
 writeAudio name image dt df = putWAVEFile name wave
                               where wave = WAVE header samples
                                     samples = samplesToOneChannelSamples (draw samplingFrequency dt df image) 
-                                    samplingFrequency = 2 * (getImageHeight image) * df
+                                    samplingFrequency = 2 * (getImageWidth image) * df
                                     header = makeHeader samplingFrequency
 
 makeSample :: Int -> Int -> Int -> Double -> Double
@@ -50,23 +45,13 @@ samplesToOneChannelSamples s = map (\d -> [d]) s
 
 prepareImage :: MonotonicImage -> MonotonicImage
 prepareImage image = map (\line -> map (\n -> divide n maxColumn) line) normalizedImage
-                     where rotatedImage = rotateImageRight image
-                           normalizedImage = map (\line -> map (\n -> divide n 255) line) rotatedImage
+                     where normalizedImage = map (\line -> map (\n -> divide n 255) line) image
                            divide n k = n/k
                            maxColumn = getMaxColumn normalizedImage
 
 getMaxColumn :: MonotonicImage -> Double
 getMaxColumn image = maximum columnSums
                      where columnSums = map sum image         
-
-rotateImageRight :: MonotonicImage -> MonotonicImage
-rotateImageRight image = map reverse rotatedImage
-                         where rotatedImage = map f indexes 
-                               indexes = [0..((getImageWidth image) - 1)]
-                               f n = do
-                                       line <- image
-                                       let pixel = line !! n
-                                       return pixel 
 
 draw :: Int -> Double -> Int -> MonotonicImage -> [WAVESample]
 draw samplingFrequency dt df image = draw' samplingFrequency dt df preparedImage
