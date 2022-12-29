@@ -3,7 +3,7 @@
 A small utility to translate images (jpg, png, etc.) to wave format.
 
 ## Usage
-To build the binary run command below in the project directory.
+To build the binary with `cabal` run command below in the project directory.
 
 ```
 cabal build
